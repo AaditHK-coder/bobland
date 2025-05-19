@@ -47,7 +47,7 @@
 </head>
 <body>
   <header>
-      <h1>🚀 Welcome to Bobland</h1>
+      <h1>🚀 Welcome to Bobland <button id="sign-in-btn">Sign in to Bobland</button></h1>
       <p class="tagline">The official website of Bobland</p>
       <p class="caption">Built by Aaditron</p>
   </header>
@@ -73,5 +73,26 @@
   <footer>
     <p>✨ Powered by <strong>Aaditron</strong> • © 2025</p>
   </footer>
+  <!-- Fullscreen sign-in UI -->
+  <div id="firebaseui-auth-container" style="display: none;"></div>
+
+  <!-- Firebase and FirebaseUI scripts go above this -->
+  <script>
+    document.getElementById('sign-in-btn').addEventListener('click', () => {
+      // Hide main site content
+      document.getElementById('main-content').style.display = 'none';
+
+      // Show the full-screen auth container
+      const authContainer = document.getElementById('firebaseui-auth-container');
+      authContainer.style.display = 'flex';
+
+      ui.start('#firebaseui-auth-container', {
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        ],
+        signInSuccessUrl: '/', // redirect here after sign in
+      });
+    });
+  </script>
 </body>
 </html>
