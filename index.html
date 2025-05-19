@@ -5,24 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bobland By Aadit</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+<!-- Compat Firebase SDK (for FirebaseUI) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 
-  // Your web app's Firebase configuration
+<!-- FirebaseUI CSS & JS -->
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/6.0.2/firebaseui.css" />
+<script src="https://cdn.firebase.com/libs/firebaseui/6.0.2/firebaseui.js"></script>
+
+<script>
+  // Your config goes here
   const firebaseConfig = {
-    apiKey: "AIzaSyAIcM63TQWXLsRNe4QXkLpYdoxrFTN-4vI",
-    authDomain: "bobland-auth.firebaseapp.com",
-    projectId: "bobland-auth",
-    storageBucket: "bobland-auth.firebasestorage.app",
-    messagingSenderId: "1087815040627",
-    appId: "1:1087815040627:web:58fda5041dbc2d9396f406"
+    apiKey: "AIzaSyAVXlREpf7ac1ob8-L-kldMHZMC1w8d-1c",
+    authDomain: "bobland-auth-2a6bd.firebaseapp.com",
+    projectId: "bobland-auth-2a6bd",
+    storageBucket: "bobland-auth-2a6bd.firebasestorage.app",
+    messagingSenderId: "1049012236037",
+    appId: "1:1049012236037:web:167fb83befd22cc6e7516c"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+  // ✅ Init with compat
+  firebase.initializeApp(firebaseConfig);
+
+  const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+  const uiConfig = {
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult) {
+        alert("Welcome to Bobland, " + authResult.user.displayName + "!");
+        return false;
+      }
+    }
+  };
+
+  ui.start("#firebaseui-auth-container", uiConfig);
 </script>
 </head>
 <body>
